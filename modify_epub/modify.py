@@ -863,7 +863,7 @@ class BookModifier(object):
         if container.is_drm_encrypted():
             self.log('ERROR - cannot remove cover in DRM encrypted book')
             return False
-        cu = CoverUpdater(self.log, container, None, None)
+        cu = CoverUpdater(self.log, container, None, None, None)
         cu.remove_existing_cover()
         return True
 

@@ -14,7 +14,7 @@ from calibre.utils.imghdr import identify
 
 import calibre_plugins.generate_cover.config as cfg
 try:
-    from qt.core import QFont, Qt, QPainter, Qt, QRect, QColor
+    from qt.core import QFont, Qt, QPainter, Qt, QRect, QColor, QFontMetrics
     weight_map = {
         "Light": QFont.Weight.Light,
         "Normal": QFont.Weight.Normal,      # <--- Fixed here
@@ -24,7 +24,7 @@ try:
     }
     default_font_weight = QFont.Weight.Normal
 except ImportError:
-    from PyQt5.Qt import QFont, Qt, QPainter, Qt, QRect, QColor
+    from PyQt5.Qt import QFont, Qt, QPainter, Qt, QRect, QColor, QFontMetrics
     weight_map = {
         "Light": QFont.Light,
         "Normal": QFont.Normal,      # <--- Fixed here
@@ -223,7 +223,7 @@ def measure_text_height(img, line, left_margin, right_margin):
     try:
         p.setFont(line.font)
         bounds = p.boundingRect(
-            QRect(0, 0, text_width, 100000),
+            QRect(0, 0, int(text_width), 100000),
             line._align | Qt.TextWordWrap, line.text)
         return bounds.height()
     finally:
